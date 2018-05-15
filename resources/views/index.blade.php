@@ -1,0 +1,8 @@
+@extends('layouts.app')
+@section('content')
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-info">Organize your ideas with ease dashboard</h1>
+        </div>
+    </div>
+@endsection
