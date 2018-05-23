@@ -16,5 +16,6 @@ Route::get('/dashboard', 'HomeController@home')->name('home');
 Auth::routes();
 Route::namespace('Api')->group(function() {
     Route::resource('boards','BoardsController');
-    Route::resource('ideas','IdeasController');
+    Route::get('board/{id}/ideas', 'IdeasController@index');
+    Route::get('board/{boardId}/ideas/{id}','IdeasController@show');
 });
