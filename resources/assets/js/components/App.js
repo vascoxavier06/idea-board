@@ -9,9 +9,19 @@ export default class App extends Component {
         super();
         this.state = {
             boards: [],
-            ideas: []
+            ideas: [],
+            boardId: 0
         };
+    }
 
+    componentDidMount () {
+
+        Axios.get('http://localhost:8000/boards').then(response => this.setState({
+            boards: response.data.data
+        }));
+    }
+
+    componentDidUpdate() {
         Axios.get('http://localhost:8000/boards').then(response => this.setState({
             boards: response.data.data
         }));
@@ -26,10 +36,11 @@ export default class App extends Component {
                         onSubmit={this.addBoard.bind(this)}
                         editBoard={this.editBoard.bind(this)}
                         deleteBoard={this.deleteBoard.bind(this)}
+                        showIdeas={this.showIdeas.bind(this)}
                     />
                 </div>
                 <div className="col-md-8">
-                    <TaskBoard />
+                    <TaskBoard boardId={this.state.boardId} ideas={this.state.ideas}/>
                 </div>
             </div>
         )
@@ -44,9 +55,6 @@ export default class App extends Component {
             .catch(function (error) {
                 console.log(error);
             });
-        Axios.get('http://localhost:8000/boards').then(response => this.setState({
-            boards: response.data.data
-        }));
     }
 
     editBoard(name,id) {
@@ -58,9 +66,6 @@ export default class App extends Component {
             .catch(function (error) {
                 console.log(error);
             });
-        Axios.get('http://localhost:8000/boards').then(response => this.setState({
-            boards: response.data.data
-        }));
     }
 
     deleteBoard(id) {
@@ -70,8 +75,14 @@ export default class App extends Component {
             .catch(function (error) {
                 console.log(error);
             });
-        Axios.get('http://localhost:8000/boards').then(response => this.setState({
-            boards: response.data.data
-        }));
+    }
+
+    async showIdeas(id) {
+        let response = await Axios.get(`http://localhost:8000/board/${id}/ideas`);
+        let data = response.data;
+        this.setState({
+            ideas: data,
+            boardId: id
+        });
     }
 }

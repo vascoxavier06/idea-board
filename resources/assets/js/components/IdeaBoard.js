@@ -11,9 +11,6 @@ export default class IdeaBoard extends Component {
         };
     }
 
-    componentDidUpdate(){
-        console.log('IdeaBoard' + this.props.boards);
-    }
     render() {
         return (
             <div className="card">
@@ -23,7 +20,7 @@ export default class IdeaBoard extends Component {
 
                 <div className="card-body">
                     <div className="container">
-                        <BoardList boards={this.props.boards} editBoard={this.props.editBoard} deleteBoard={this.props.deleteBoard}/>
+                        <BoardList boards={this.props.boards} editBoard={this.props.editBoard} deleteBoard={this.props.deleteBoard} showIdeas={this.props.showIdeas}/>
                     </div>
                 </div>
 

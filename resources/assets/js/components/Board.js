@@ -7,6 +7,7 @@ export default class Board extends Component {
             openEdit: false
         };
     }
+
     render (){
         if(this.state.openEdit) {
             return (
@@ -28,9 +29,9 @@ export default class Board extends Component {
             return (
                 <div className="card">
                     <div className="card-header">
-                        <button type="button" className="close" aria-label="Close"><span aria-hidden="true" onClick={this.handleDelete.bind(this)}>&times;</span></button>
+                        <button type="button" className="close" aria-label="Close" onClick={this.handleDelete.bind(this)}><span aria-hidden="true">&times;</span></button>
                     </div>
-                    <div className="card-body" onDoubleClick={this.openEdit.bind(this)}>
+                    <div className="card-body border" onDoubleClick={this.openEdit.bind(this)} onClick={this.handleListTasks.bind(this)}>
                     {this.props.board.name}
                     </div>
                 </div>
@@ -52,5 +53,10 @@ export default class Board extends Component {
 
     handleDelete() {
         this.props.deleteBoard(this.props.board.id);
+    }
+
+    handleListTasks(){
+        this.props.showIdeas(this.props.board.id);
+
     }
 }
