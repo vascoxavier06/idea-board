@@ -4,6 +4,7 @@ namespace IdeaBoard\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use IdeaBoard\Http\Controllers\Controller;
+use IdeaBoard\Idea;
 
 class IdeasController extends Controller
 {
@@ -17,9 +18,11 @@ class IdeasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $ideas = Idea::where('board_id','=',$id)->get();
+
+        return $ideas;
     }
 
     /**
@@ -39,9 +42,11 @@ class IdeasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($boardId,$id)
     {
-        //
+        $idea = Idea::where('board_id','=',$boardId)->findOrFail($id);
+
+        return $idea;
     }
 
     /**
